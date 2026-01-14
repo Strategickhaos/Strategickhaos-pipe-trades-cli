@@ -11,6 +11,7 @@
 #endif
 
 #define VERSION "1.0.0"
+#define EPSILON 1e-9
 
 double parse_double(const char *str, const char *param_name) {
     char *endptr;
@@ -145,8 +146,8 @@ void cmd_rolling_offset(int argc, char *argv[]) {
     double roll = parse_double(argv[3], "roll");    // inches
     double travel = parse_double(argv[4], "travel");  // inches
     
-    if (travel == 0) {
-        fprintf(stderr, "Error: travel cannot be zero\n");
+    if (fabs(travel) < EPSILON) {
+        fprintf(stderr, "Error: travel cannot be zero or near zero\n");
         exit(1);
     }
     

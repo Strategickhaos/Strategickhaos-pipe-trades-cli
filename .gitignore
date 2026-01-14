@@ -39,3 +39,22 @@
 
 # debug information files
 *.dwo
+
+# Build artifacts and runtime files
+logs/control_sequence.yaml
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Temporary and local files
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

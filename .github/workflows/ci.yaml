@@ -1,0 +1,12 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: python main.py beam --circ 44 --shoes 4 --boot 6 --rise 30
+    - run: python main.py offset --angle 45 --offset 5

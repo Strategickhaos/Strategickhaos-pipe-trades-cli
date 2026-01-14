@@ -1,0 +1,5 @@
+version: '3.8'
+services:
+  ptc:
+    build: .
+    image: strategickhaos/pipe-trades-cli:latest

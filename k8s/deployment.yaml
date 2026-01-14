@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pipe-trades-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ptc
+  template:
+    metadata:
+      labels:
+        app: ptc
+    spec:
+      containers:
+      - name: ptc
+        image: strategickhaos/pipe-trades-cli:latest
+        command: ["sleep", "infinity"]

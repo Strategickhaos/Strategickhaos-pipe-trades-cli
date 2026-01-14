@@ -12,33 +12,37 @@
 
 #define VERSION "1.0.0"
 
-int is_valid_number(const char *str) {
+double parse_double(const char *str, const char *param_name) {
     char *endptr;
     errno = 0;
     
     // Skip leading whitespace
-    while (isspace(*str)) str++;
+    const char *ptr = str;
+    while (isspace(*ptr)) ptr++;
     
     // Check for empty string
-    if (*str == '\0') return 0;
-    
-    // Try to convert
-    strtod(str, &endptr);
-    
-    // Check if conversion was successful
-    if (errno != 0) return 0;
-    
-    // Check if entire string was consumed (except trailing whitespace)
-    while (isspace(*endptr)) endptr++;
-    return *endptr == '\0';
-}
-
-double parse_double(const char *str, const char *param_name) {
-    if (!is_valid_number(str)) {
+    if (*ptr == '\0') {
         fprintf(stderr, "Error: Invalid number for %s: '%s'\n", param_name, str);
         exit(1);
     }
-    return atof(str);
+    
+    // Try to convert
+    double value = strtod(str, &endptr);
+    
+    // Check if conversion was successful
+    if (errno != 0) {
+        fprintf(stderr, "Error: Invalid number for %s: '%s'\n", param_name, str);
+        exit(1);
+    }
+    
+    // Check if entire string was consumed (except trailing whitespace)
+    while (isspace(*endptr)) endptr++;
+    if (*endptr != '\0') {
+        fprintf(stderr, "Error: Invalid number for %s: '%s'\n", param_name, str);
+        exit(1);
+    }
+    
+    return value;
 }
 
 void print_usage(const char *prog_name) {
@@ -147,7 +151,7 @@ void cmd_rolling_offset(int argc, char *argv[]) {
     }
     
     // Calculate true offset using 3D Pythagorean theorem
-    double true_offset = sqrt(offset * offset + roll * roll);
+    double true_offset = hypot(offset, roll);
     
     // Calculate set (45-degree fitting advance)
     double set = (travel * travel - offset * offset - roll * roll) / (2.0 * travel);

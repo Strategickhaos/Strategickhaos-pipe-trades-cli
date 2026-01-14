@@ -18,7 +18,7 @@ spec:
         image: ptc-control-unit:latest
         volumeMounts:
         - mountPath: /app/data
-          name: shared-data
+          name: control-pvc
   volumeClaimTemplates:
   - metadata:
       name: control-pvc

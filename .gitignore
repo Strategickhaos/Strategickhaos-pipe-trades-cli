@@ -39,3 +39,9 @@
 
 # debug information files
 *.dwo
+
+# Project-specific binaries
+pipe-trades
+
+# CodeQL analysis files
+_codeql_detected_source_root

@@ -156,8 +156,8 @@ void cmd_rolling_offset(int argc, char *argv[]) {
     double true_offset = hypot(offset, roll);
     
     // Calculate set (45-degree fitting advance)
-    // The set is the distance from the end of the pipe to the center of the fitting
-    // Derived from: travel^2 = set^2 + true_offset^2, solving for set
+    // Standard pipefitting formula for the fitting advance in a rolling offset
+    // This represents how much the fitting "eats up" of the travel distance
     double set = (travel * travel - offset * offset - roll * roll) / (2.0 * travel);
     
     // Calculate diagonal travel using 3D distance formula

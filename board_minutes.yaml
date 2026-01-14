@@ -1,0 +1,58 @@
+# Board Members Minutes - Proof of Concept
+
+meeting:
+  date: 2026-01-14
+  project: PIPE-TRADES-CLI
+  location: Virtual / Codespaces / Kali / Alpine
+  attendees:
+    - Strategickhaos (Lead)
+    - Board of Directors
+    - Technical Advisors
+
+agenda:
+  - Review of CLI proof of concept
+  - Multi-platform verification
+  - Containerization and deployment
+  - Next steps and recommendations
+
+minutes:
+  summary:
+    - The PIPE-TRADES-CLI project has delivered a fully functional proof of concept.
+    - The CLI is operational on Codespaces, Kali Linux, and Alpine/iSH.
+    - All core features (beam calculation, GPS decode, rolling offset) are verified.
+    - The project is containerized with Docker and includes Kubernetes manifests.
+    - Public GitHub repository is live and up to date.
+    - Install scripts for bash and PowerShell are provided.
+    - Recon YAML and ML sandbox scaffolds are in place for future expansion.
+
+  evidence:
+    github_repo: https://github.com/Strategickhaos/Strategickhaos-pipe-trades-cli
+    commit: 7bcd64d
+    docker:
+      build: "docker build -t ptc ."
+      run: "docker run ptc beam --circ 44 --shoes 4 --boot 6 --rise 30"
+      output: |
+        BEAM LENGTH:    68.88" (5.74 ft)
+        Band Qty: 3
+        Mesh Panels: 2
+    platforms:
+      - Codespaces (humble-guacamole)
+      - Kali Linux
+      - Alpine/iSH
+    install_scripts:
+      - scripts/install.sh
+      - scripts/install.ps1
+    k8s_manifest: k8s/deployment.yaml
+    recon_config: recon/grok_config.yaml
+    ml_sandbox: sandbox/README.md
+
+  decision:
+    - The board acknowledges successful delivery of the proof of concept.
+    - Approves moving to the next phase: Recon Engine and ML Sandbox development.
+    - Recommends continued open-source development and documentation.
+
+  next_steps:
+    - Begin implementation of Recon Engine (YAML-driven plant data extraction)
+    - Develop ML training pipeline using saved field jobs
+    - Expand documentation and onboarding guides
+    - Explore cloud deployment and CI/CD automation

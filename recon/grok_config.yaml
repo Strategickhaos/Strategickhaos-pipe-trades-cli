@@ -1,0 +1,74 @@
+# GROK RECON CONFIGURATION
+# Plant structure intelligence gathering
+
+recon:
+  name: "Plant Structure Recon"
+  version: "0.1.0"
+  
+targets:
+  gps_bounds:
+    # Lake Charles industrial corridor
+    north: 30.25
+    south: 30.15
+    east: -93.20
+    west: -93.40
+  
+  data_sources:
+    - type: satellite
+      provider: google_earth
+      resolution: high
+      layers:
+        - imagery
+        - elevation
+        - structures
+    
+    - type: engineering
+      sources:
+        - p_and_id  # Piping and Instrumentation Diagrams
+        - isometrics
+        - structural_drawings
+        - fireproofing_specs
+    
+    - type: public_records
+      sources:
+        - permits
+        - environmental_filings
+        - safety_reports
+
+extraction:
+  structures:
+    - beams
+    - columns
+    - pipe_racks
+    - vessels
+    - exchangers
+  
+  attributes:
+    - dimensions
+    - materials
+    - fireproofing_type
+    - elevation
+    - gps_coordinates
+
+output:
+  format: json
+  destination: ./recon/data/
+  
+ml_pipeline:
+  training_data:
+    - field_measurements
+    - satellite_measurements
+    - engineering_specs
+  
+  models:
+    - beam_dimension_predictor
+    - fireproofing_estimator
+    - structural_classifier
+  
+  sandbox:
+    type: simulation
+    physics: enabled
+    scenarios:
+      - debris_fall
+      - fire_exposure
+      - load_analysis

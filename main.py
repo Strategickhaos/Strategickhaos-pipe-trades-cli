@@ -247,6 +247,11 @@ def main():
     p.add_argument("--unit", default="ft")
     
     # hyp
+    
+    # swarm
+    p = sub.add_parser("swarm")
+    p.add_argument("--broker", default="mqtt.eclipseprojects.io")
+    p.add_argument("--port", type=int, default=1883)
     p = sub.add_parser("hyp")
     p.add_argument("--run", type=float, required=True)
     p.add_argument("--rise", type=float, required=True)
@@ -280,8 +285,129 @@ def main():
         print(f"Travel: {t:.4f}\" ({t/12:.4f} ft)")
     
     else:
+    elif args.cmd == "swarm":
+        swarm_mode(args.broker, args.port)
+
         parser.print_help()
 
 
 if __name__ == "__main__":
     main()
+
+
+# ============================================================
+# SWARM MODE - Field Crew Coordination
+# ============================================================
+
+def swarm_mode(broker="mqtt.eclipseprojects.io", port=1883):
+    """Connect to swarm network for real-time crew coordination."""
+    try:
+        import paho.mqtt.client as mqtt
+    except ImportError:
+        print("ERROR: paho-mqtt not installed. Run: pip install paho-mqtt")
+        return
+    
+    import json
+    import time
+    import socket
+    
+    crew_id = socket.gethostname()
+    topic = "strategickhaos/pipe-trades/field-updates"
+    
+    def on_connect(client, userdata, flags, rc):
+        status = "✓ CONNECTED" if rc == 0 else f"✗ FAILED ({rc})"
+        print(f"Swarm Status: {status}")
+        print(f"Crew ID: {crew_id}")
+        print(f"Topic: {topic}")
+        print("-" * 50)
+        client.subscribe(topic)
+    
+    def on_message(client, userdata, msg):
+        try:
+            data = json.loads(msg.payload)
+            print(f"[SWARM] {data.get('crew_id', 'unknown')}: {data.get('calculation', {})}")
+        except:
+            print(f"[SWARM] Raw: {msg.payload.decode()}")
+    
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    
+    print("=" * 50)
+    print("PIPE TRADES CLI - SWARM MODE")
+    print("=" * 50)
+    print(f"Connecting to {broker}:{port}...")
+    
+    try:
+        client.connect(broker, port, 60)
+        client.loop_start()
+        
+        # Publish presence
+        presence = {
+            "crew_id": crew_id,
+            "status": "online",
+            "capabilities": ["beam", "offset", "calibrate", "gps"]
+        }
+        client.publish(topic, json.dumps(presence))
+        
+        # Interactive swarm loop
+        print("\nSwarm active. Commands:")
+        print("  beam <circ> <shoes> <boot> <rise> - Share beam calc")
+        print("  offset <angle> <offset> - Share offset calc")
+        print("  exit - Leave swarm")
+        print("-" * 50)
+        
+        while True:
+            cmd = input("swarm> ").strip().split()
+            if not cmd:
+                continue
+            
+            if cmd[0] == "exit":
+                print("Leaving swarm...")
+                break
+            
+            elif cmd[0] == "beam" and len(cmd) == 5:
+                calc = BeamCalc(float(cmd[1]), int(cmd[2]), float(cmd[3]), float(cmd[4]))
+                data = {
+                    "crew_id": crew_id,
+                    "calculation": {
+                        "type": "beam",
+                        "length": round(calc.beam_length, 2),
+                        "band_qty": calc.band_qty,
+                        "mesh_panels": calc.mesh_qty
+                    }
+                }
+                client.publish(topic, json.dumps(data))
+                print(f"[SENT] {data['calculation']}")
+            
+            elif cmd[0] == "offset" and len(cmd) == 3:
+                r = rolling_offset(float(cmd[1]), float(cmd[2]))
+                data = {
+                    "crew_id": crew_id,
+                    "calculation": {
+                        "type": "offset",
+                        "travel": round(r["travel"], 4),
+                        "advance": round(r["advance"], 4)
+                    }
+                }
+                client.publish(topic, json.dumps(data))
+                print(f"[SENT] {data['calculation']}")
+            
+            else:
+                print("Unknown command. Try: beam, offset, exit")
+        
+        client.loop_stop()
+        client.disconnect()
+        
+    except Exception as e:
+        print(f"Swarm error: {e}")
+
+# Add swarm to CLI (append to main function manually or run):
+# In the main() function, add after the 'hyp' subparser:
+#     p = sub.add_parser("swarm")
+#     p.add_argument("--broker", default="mqtt.eclipseprojects.io")
+#     p.add_argument("--port", type=int, default=1883)
+#
+# And in the if/elif chain:
+#     elif args.cmd == "swarm":
+#         swarm_mode(args.broker, args.port)

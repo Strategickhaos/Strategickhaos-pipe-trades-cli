@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ptc-control-unit
+spec:
+  serviceName: "control-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ptc-control-unit
+  template:
+    metadata:
+      labels:
+        app: ptc-control-unit
+    spec:
+      containers:
+      - name: control-core
+        image: ptc-control-unit:latest
+        volumeMounts:
+        - mountPath: /app/data
+          name: control-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: control-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

@@ -1,0 +1,6 @@
+FROM ghcr.io/lua:5.4-alpine
+RUN apk add --no-cache git mosquitto-libs curl lua-yaml  # Or lua-lyaml
+COPY control /app/control
+COPY logs /app/logs
+WORKDIR /app
+CMD ["lua", "control/sequencer.lua"]

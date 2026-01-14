@@ -1,0 +1,8 @@
+# Dominant Cognitive Architecture
+# Defines control motifs and neurological resilience patterns
+motivation: "neurological-adapted resilience"
+control_motif: "Quadrilateral Collapse"
+architecture_version: "1.0"
+resilience_bias: 0.3
+trig_matrix_enabled: true
+collapse_strategy: "fold_probabilities_to_executable"

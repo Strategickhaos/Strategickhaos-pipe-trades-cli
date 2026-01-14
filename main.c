@@ -3,12 +3,43 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <errno.h>
+#include <ctype.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 
 #define VERSION "1.0.0"
+
+int is_valid_number(const char *str) {
+    char *endptr;
+    errno = 0;
+    
+    // Skip leading whitespace
+    while (isspace(*str)) str++;
+    
+    // Check for empty string
+    if (*str == '\0') return 0;
+    
+    // Try to convert
+    strtod(str, &endptr);
+    
+    // Check if conversion was successful
+    if (errno != 0) return 0;
+    
+    // Check if entire string was consumed (except trailing whitespace)
+    while (isspace(*endptr)) endptr++;
+    return *endptr == '\0';
+}
+
+double parse_double(const char *str, const char *param_name) {
+    if (!is_valid_number(str)) {
+        fprintf(stderr, "Error: Invalid number for %s: '%s'\n", param_name, str);
+        exit(1);
+    }
+    return atof(str);
+}
 
 void print_usage(const char *prog_name) {
     printf("Pipe Trades CLI - Field-calibrated pipefitter calculation ecosystem\n");
@@ -49,10 +80,10 @@ void cmd_gps_verify(int argc, char *argv[]) {
         exit(1);
     }
     
-    double lat1 = atof(argv[2]);
-    double lon1 = atof(argv[3]);
-    double lat2 = atof(argv[4]);
-    double lon2 = atof(argv[5]);
+    double lat1 = parse_double(argv[2], "lat1");
+    double lon1 = parse_double(argv[3], "lon1");
+    double lat2 = parse_double(argv[4], "lat2");
+    double lon2 = parse_double(argv[5], "lon2");
     
     double distance = gps_distance(lat1, lon1, lat2, lon2);
     
@@ -69,8 +100,17 @@ void cmd_beam_wrap(int argc, char *argv[]) {
         exit(1);
     }
     
-    double diameter = atof(argv[2]); // inches
-    double length = atof(argv[3]);   // feet
+    double diameter = parse_double(argv[2], "diameter"); // inches
+    double length = parse_double(argv[3], "length");   // feet
+    
+    if (diameter <= 0) {
+        fprintf(stderr, "Error: diameter must be positive\n");
+        exit(1);
+    }
+    if (length <= 0) {
+        fprintf(stderr, "Error: length must be positive\n");
+        exit(1);
+    }
     
     // Calculate surface area for wrap material
     double radius = diameter / 2.0;
@@ -97,9 +137,14 @@ void cmd_rolling_offset(int argc, char *argv[]) {
         exit(1);
     }
     
-    double offset = atof(argv[2]);  // inches
-    double roll = atof(argv[3]);    // inches
-    double travel = atof(argv[4]);  // inches
+    double offset = parse_double(argv[2], "offset");  // inches
+    double roll = parse_double(argv[3], "roll");    // inches
+    double travel = parse_double(argv[4], "travel");  // inches
+    
+    if (travel == 0) {
+        fprintf(stderr, "Error: travel cannot be zero\n");
+        exit(1);
+    }
     
     // Calculate true offset using 3D Pythagorean theorem
     double true_offset = sqrt(offset * offset + roll * roll);
@@ -108,7 +153,14 @@ void cmd_rolling_offset(int argc, char *argv[]) {
     double set = (travel * travel - offset * offset - roll * roll) / (2.0 * travel);
     
     // Calculate diagonal travel
-    double diagonal = sqrt(travel * travel + offset * offset + roll * roll - 2.0 * travel * set);
+    double diagonal_squared = travel * travel + offset * offset + roll * roll - 2.0 * travel * set;
+    
+    if (diagonal_squared < 0) {
+        fprintf(stderr, "Error: Invalid input values - would result in imaginary diagonal\n");
+        exit(1);
+    }
+    
+    double diagonal = sqrt(diagonal_squared);
     
     printf("Rolling Offset Calculation\n");
     printf("===========================\n");

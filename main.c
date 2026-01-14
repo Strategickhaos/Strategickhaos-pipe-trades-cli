@@ -12,6 +12,7 @@
 
 #define VERSION "1.0.0"
 #define EPSILON 1e-9
+#define METERS_TO_FEET 3.28084
 
 double parse_double(const char *str, const char *param_name) {
     char *endptr;
@@ -96,7 +97,7 @@ void cmd_gps_verify(int argc, char *argv[]) {
     printf("============================\n");
     printf("Point 1: %.6f, %.6f\n", lat1, lon1);
     printf("Point 2: %.6f, %.6f\n", lat2, lon2);
-    printf("Distance: %.2f meters (%.2f feet)\n", distance, distance * 3.28084);
+    printf("Distance: %.2f meters (%.2f feet)\n", distance, distance * METERS_TO_FEET);
 }
 
 void cmd_beam_wrap(int argc, char *argv[]) {
@@ -155,9 +156,13 @@ void cmd_rolling_offset(int argc, char *argv[]) {
     double true_offset = hypot(offset, roll);
     
     // Calculate set (45-degree fitting advance)
+    // The set is the distance from the end of the pipe to the center of the fitting
+    // Derived from: travel^2 = set^2 + true_offset^2, solving for set
     double set = (travel * travel - offset * offset - roll * roll) / (2.0 * travel);
     
-    // Calculate diagonal travel
+    // Calculate diagonal travel using 3D distance formula
+    // This applies the law of cosines in 3D space to find the actual pipe length needed
+    // Formula: diagonal^2 = travel^2 + offset^2 + roll^2 - 2*travel*set
     double diagonal_squared = travel * travel + offset * offset + roll * roll - 2.0 * travel * set;
     
     if (diagonal_squared < 0) {

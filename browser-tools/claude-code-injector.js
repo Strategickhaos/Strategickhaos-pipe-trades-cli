@@ -7,7 +7,6 @@
     'use strict';
     
     // Configuration
-    const CLAUDE_API_ENDPOINT = 'https://api.anthropic.com/v1/messages';
     const WS_BRIDGE = 'ws://localhost:9999';  // Local bridge for Claude Code
     
     // Create the Claude Code panel
@@ -240,9 +239,9 @@
         // Detect GitHub page type
         if (location.pathname.includes('/projects/')) {
             context.type = 'project';
-            context.projectName = document.querySelector('[data-testid="project-name"]')?.textContent 
-                               || document.querySelector('.js-project-name')?.textContent
-                               || 'Unknown Project';
+            context.projectName = (document.querySelector('[data-testid="project-name"]')?.textContent?.trim() 
+                               || document.querySelector('.js-project-name')?.textContent?.trim()
+                               || 'Unknown Project');
             
             // Get project items
             const items = [];

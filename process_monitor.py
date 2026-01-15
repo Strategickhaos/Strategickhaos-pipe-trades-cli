@@ -129,7 +129,7 @@ class ClaudeBridge:
                 items = context.get("items", [])
                 item_count = len(items)
                 return f"""📊 Project Summary
-                
+
 Total Items: {item_count}
 Page Type: {page_type}
 URL: {url}
@@ -224,6 +224,7 @@ Press Ctrl+C to stop the server.
 # ============================================================================
 # 
 # To enable full Claude AI capabilities, uncomment and configure below:
+# Requires: pip install anthropic>=0.34.0
 #
 # import anthropic
 # 

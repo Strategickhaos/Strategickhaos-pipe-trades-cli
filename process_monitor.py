@@ -244,7 +244,7 @@ Press Ctrl+C to stop the server.
 # Provide concise, helpful responses about the GitHub page content."""
 #     
 #     message = client.messages.create(
-#         model="claude-3-5-sonnet-20241022",
+#         model="claude-3-5-sonnet-20240620",  # Use latest stable Claude model
 #         max_tokens=1024,
 #         system=system_prompt,
 #         messages=[{"role": "user", "content": text}]

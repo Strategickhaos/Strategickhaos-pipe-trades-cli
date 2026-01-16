@@ -1,0 +1,14 @@
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/PipeTradesFeatureEngine.dna
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/PipeTradesFeatureEngine.deps.json
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/PipeTradesFeatureEngine.runtimeconfig.json
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/PipeTradesFeatureEngine.dll
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/PipeTradesFeatureEngine.pdb
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/bin/Debug/net6.0-windows/Newtonsoft.Json.dll
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.csproj.AssemblyReference.cache
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.csproj.CoreCompileInputs.cache
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.sourcelink.json
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTrad.7A2B2E3A.Up2Date
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.dll
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.pdb
+/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/obj/Debug/net6.0-windows/PipeTradesFeatureEngine.genruntimeconfig.cache

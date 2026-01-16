@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "vuK+4diQtcI=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/Strategickhaos-pipe-trades-cli/Strategickhaos-pipe-trades-cli/src/ExcelDna/PipeTradesFeatureEngine.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/exceldna.addin/1.7.0/exceldna.addin.1.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/exceldna.integration/1.7.0/exceldna.integration.1.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}

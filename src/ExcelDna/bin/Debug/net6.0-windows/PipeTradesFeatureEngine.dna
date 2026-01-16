@@ -1,0 +1,26 @@
+<DnaLibrary Name="Pipe Trades Feature Engine" RuntimeVersion="v4.0">
+  <ExternalLibrary Path="PipeTradesFeatureEngine.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+  
+  <!-- 
+    Feature Engine Add-In for Excel
+    
+    This add-in exposes primitive feature functions that transform
+    heterogeneous inputs into measurable outputs.
+    
+    Architecture:
+    - Interface: Excel cells
+    - Orchestration: This C# layer
+    - Engines: Pure functions (no interpretation, only metrics)
+    
+    Available Functions:
+    - FREQUENCY_HZ(wavelength_mm)
+    - ELEMENT_Z(symbol)
+    - GEO_DISTANCE_KM(lat1, lon1, lat2, lon2)
+    - FALLACY_SCORE(text)
+    - ENTROPY_SCORE(text)
+    - CONTRADICTION_SCORE(text)
+    - SIGNAL_SHARPNESS(text)
+    - UTRD(text)
+  -->
+  
+</DnaLibrary>

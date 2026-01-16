@@ -1,0 +1,9 @@
+Raw Input,Wavelength (mm),Element,Latitude,Longitude,Frequency (Hz),Atomic Number,Distance (km),Fallacy Score,Entropy Score,Contradiction Score,Signal Sharpness,UTRD Result
+"Radio wave example",300000,H,30.2266,-93.2174,=FREQUENCY_HZ(B2),=ELEMENT_Z(C2),,,,,,
+"Microwave example",10,He,30.2366,-93.3774,=FREQUENCY_HZ(B3),=ELEMENT_Z(C3),=GEO_DISTANCE_KM(D2,E2,D3,E3),,,,,
+"Visible light example",0.0005,C,,,=FREQUENCY_HZ(B4),=ELEMENT_Z(C4),,,,,,
+"Everyone says this is true so it must be correct!",,Fe,,,=FREQUENCY_HZ(B5),=ELEMENT_Z(C5),,=FALLACY_SCORE(A5),=ENTROPY_SCORE(A5),=CONTRADICTION_SCORE(A5),=SIGNAL_SHARPNESS(A5),=UTRD(A5)
+"The temperature was 72.5°F at 14:23 on January 16th.",,Au,,,=FREQUENCY_HZ(B6),=ELEMENT_Z(C6),,=FALLACY_SCORE(A6),=ENTROPY_SCORE(A6),=CONTRADICTION_SCORE(A6),=SIGNAL_SHARPNESS(A6),=UTRD(A6)
+"Maybe it could possibly work. Perhaps.",,Cu,,,=FREQUENCY_HZ(B7),=ELEMENT_Z(C7),,=FALLACY_SCORE(A7),=ENTROPY_SCORE(A7),=CONTRADICTION_SCORE(A7),=SIGNAL_SHARPNESS(A7),=UTRD(A7)
+"Lake Charles Location",,O,30.2266,-93.2174,,=ELEMENT_Z(C8),,=FALLACY_SCORE(A8),=ENTROPY_SCORE(A8),=CONTRADICTION_SCORE(A8),=SIGNAL_SHARPNESS(A8),
+"Sulphur Location",,N,30.2366,-93.3774,,=ELEMENT_Z(C9),=GEO_DISTANCE_KM(D8,E8,D9,E9),=FALLACY_SCORE(A9),=ENTROPY_SCORE(A9),=CONTRADICTION_SCORE(A9),=SIGNAL_SHARPNESS(A9),

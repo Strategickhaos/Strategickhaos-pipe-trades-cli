@@ -486,9 +486,13 @@ namespace PipeTradesFeatureEngine
                 );
                 
                 // Return as JSON contract
+                string inputSummary = text.Length > 50 
+                    ? text.Substring(0, 50) + "..." 
+                    : text;
+                
                 var metrics = new
                 {
-                    input = text.Substring(0, Math.Min(50, text.Length)) + "...",
+                    input = inputSummary,
                     metrics = new
                     {
                         fallacy_score = fallacyScore,

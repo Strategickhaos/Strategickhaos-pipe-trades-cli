@@ -15,7 +15,7 @@ namespace FeatureEngineTests
         {
             // Radio wave: 300m wavelength = 300,000mm
             var result = FeatureEngine.FREQUENCY_HZ(300000);
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double frequency = (double)result;
             
             // c = λf, so f = c/λ
@@ -99,7 +99,7 @@ namespace FeatureEngineTests
         {
             // Lake Charles to Sulphur (roughly 15km)
             var result = FeatureEngine.GEO_DISTANCE_KM(30.2266, -93.2174, 30.2366, -93.3774);
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double distance = (double)result;
             
             // Should be around 15km
@@ -128,7 +128,7 @@ namespace FeatureEngineTests
         public void FALLACY_SCORE_ValidText_ReturnsScore()
         {
             var result = FeatureEngine.FALLACY_SCORE("Everyone says this is true!");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double score = (double)result;
             Assert.True(score >= 0.0 && score <= 1.0);
         }
@@ -144,7 +144,7 @@ namespace FeatureEngineTests
         public void ENTROPY_SCORE_RepetitiveText_ReturnsLowEntropy()
         {
             var result = FeatureEngine.ENTROPY_SCORE("aaaaaa");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double entropy = (double)result;
             Assert.True(entropy < 0.3); // Should be low entropy
         }
@@ -153,7 +153,7 @@ namespace FeatureEngineTests
         public void ENTROPY_SCORE_DiverseText_ReturnsHigherEntropy()
         {
             var result = FeatureEngine.ENTROPY_SCORE("The quick brown fox jumps over the lazy dog");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double entropy = (double)result;
             Assert.True(entropy > 0.5); // Should be higher entropy
         }
@@ -169,7 +169,7 @@ namespace FeatureEngineTests
         public void CONTRADICTION_SCORE_ValidText_ReturnsScore()
         {
             var result = FeatureEngine.CONTRADICTION_SCORE("I love cats. I hate cats.");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double score = (double)result;
             Assert.True(score >= 0.0 && score <= 1.0);
         }
@@ -185,7 +185,7 @@ namespace FeatureEngineTests
         public void SIGNAL_SHARPNESS_SpecificText_ReturnsHighScore()
         {
             var result = FeatureEngine.SIGNAL_SHARPNESS("The temperature was 72.5 degrees at 14:23 on January 16th.");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double sharpness = (double)result;
             Assert.True(sharpness > 0.3); // Should be relatively sharp
         }
@@ -194,7 +194,7 @@ namespace FeatureEngineTests
         public void SIGNAL_SHARPNESS_VagueText_ReturnsLowScore()
         {
             var result = FeatureEngine.SIGNAL_SHARPNESS("Maybe it could possibly work perhaps.");
-            Assert.IsType<double>(result);
+            Assert.True(result is double, "Expected double return type");
             double sharpness = (double)result;
             Assert.True(sharpness < 0.5); // Should be less sharp due to hedge words
         }
